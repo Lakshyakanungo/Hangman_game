@@ -1,11 +1,25 @@
 const Express = require("express");
 const routes = require("./routes");
 const { sequelize, Word } = require("./models");
+const fetch = require("node-fetch");
 
 async function initialize() {
   const app = Express();
 
   app.use(Express.json());
+
+  console.log("okay recieved request");
+  //setting Access-Control-Allow-Origin header to rectify cors error
+  app.use((req, res, next) => {
+    res.set("Access-Control-Allow-Origin", "http://127.0.0.1:5501");
+    res.set("Access-Control-Allow-Credentials", "true");
+    res.set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.set(
+      "Access-Control-Allow-Headers",
+      "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+    );
+    next();
+  });
 
   // app.get("/", (req, res) => {
   //   res.status(200).send("hello world");
@@ -18,17 +32,75 @@ async function initialize() {
   //required to do only once
 
   // TODO: done twice ...so delete these once
+  // const array = [
+  //   "purple",
+  //   "orange",
+  //   "family",
+  //   "twelve",
+  //   "silver",
+  //   "Godard",
+  //   "thirty",
+  //   "donate",
+  //   "people",
+  //   "future",
+  //   "Heaven",
+  //   "banana",
+  //   "Africa",
+  //   "Monday",
+  //   "office",
+  //   "nature",
+  //   "eleven",
+  //   "Mumbai",
+  //   "animal",
+  //   "twenty",
+  //   "snitch",
+  //   "Rachel",
+  //   "Friday",
+  //   "Father",
+  //   "yellow",
+  //   "poetry",
+  //   "August",
+  //   "broken",
+  //   "potato",
+  //   "Sunday",
+  //   "circle",
+  //   "school",
+  //   "breath",
+  //   "moment",
+  //   "circus",
+  //   "person",
+  //   "scarce",
+  //   "London",
+  //   "energy",
+  //   "sister",
+  //   "spring",
+  //   "change",
+  //   "monkey",
+  //   "system",
+  //   "Austin",
+  //   "secret",
+  //   "pirate",
+  //   "turtle",
+  //   "ninety",
+  //   "mother",
+  // ];
+  // const lower = array.map((ele) => ele.toLocaleLowerCase());
 
-  // await Word.bulkCreate([
-  //   {
-  //     title: "my",
-  //   },
-  //   { title: "name is" },
-  //   { title: "khan" },
-  // ]);
+  // let bulkwords = lower.map((o) => {
+  //   return {
+  //     title: o,
+  //   };
+  // });
 
-  app.listen(4001, () => {
-    console.log("app running on port 4001");
+  // await Word.bulkCreate(bulkwords);
+
+  let port = process.env.PORT;
+  if (port == null || port == "") {
+    port = 4001;
+  }
+
+  app.listen(port, () => {
+    console.log(`app running on port ${port} `);
   });
 }
 initialize();

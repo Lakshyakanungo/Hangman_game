@@ -1,8 +1,22 @@
 const { Sequelize, Model, DataTypes } = require("sequelize");
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "./database.sqlite",
+const sequelize = require("sequelize");
+sequelizee = new Sequelize(process.env.DATABASE_URL, {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
 });
+
+sequelizee
+  .authenticate()
+  .then(() => {
+    console.log("Connection has been established successfully.");
+  })
+  .catch((err) => {
+    console.error("Unable to connect to the database:", err);
+  });
 
 //defining classes in ORM
 class GameSession extends Model {}

@@ -24,7 +24,7 @@ async function initialize() {
     //     "Origin, X-Requested-With, Content-Type, Accept"
     //   );
     // }
-    res.set("Access-Control-Allow-Origin", "https://hangmann-app.netlify.app/");
+    res.set("Access-Control-Allow-Origin", "https://hangmann-app.netlify.app");
     res.set("Access-Control-Allow-Credentials", "true");
     res.set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
     res.set(

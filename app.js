@@ -13,7 +13,7 @@ async function initialize() {
   console.log("okay recieved request");
   //setting Access-Control-Allow-Origin header to rectify cors error
   app.use((req, res, next) => {
-    res.set("Access-Control-Allow-Origin", "http://127.0.0.1:5501");
+    res.set("Access-Control-Allow-Origin", "https://hangmann-app.netlify.app/");
     res.set("Access-Control-Allow-Credentials", "true");
     res.set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
     res.set(
@@ -23,9 +23,9 @@ async function initialize() {
     next();
   });
 
-  // app.get("/", (req, res) => {
-  //   res.status(200).send("hello world");
-  // });
+  app.get("/", (req, res) => {
+    res.status(200).send("hello world");
+  });
 
   app.use(routes);
 

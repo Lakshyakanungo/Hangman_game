@@ -13,17 +13,28 @@ async function initialize() {
   console.log("okay recieved request");
   //setting Access-Control-Allow-Origin header to rectify cors error
   app.use((req, res, next) => {
-    res.set(
-      "Access-Control-Allow-Origin",
+    const corsWhitelist = [
       "https://hangmann-app.netlify.app/",
-      "http://127.0.0.1:5501"
-    );
-    res.set("Access-Control-Allow-Credentials", "true");
-    res.set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-    res.set(
-      "Access-Control-Allow-Headers",
-      "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
-    );
+      "http://127.0.0.1:5501",
+    ];
+    if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
+      res.header("Access-Control-Allow-Origin", req.headers.origin);
+      res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+      );
+    }
+    // res.set(
+    //   "Access-Control-Allow-Origin",
+    //   "https://hangmann-app.netlify.app/",
+    //   "http://127.0.0.1:5501"
+    // );
+    // res.set("Access-Control-Allow-Credentials", "true");
+    // res.set("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    // res.set(
+    //   "Access-Control-Allow-Headers",
+    //   "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+    // );
     next();
   });
 

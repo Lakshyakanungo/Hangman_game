@@ -1,6 +1,15 @@
+const pg = require("pg");
+const dotenv = require("dotenv");
+dotenv.config();
+
 const { Sequelize, Model, DataTypes } = require("sequelize");
-const sequelize = require("sequelize");
-sequelizee = new Sequelize(process.env.DATABASE_URL, {
+
+// const sequelize = new Sequelize({
+//   dialect: "sqlite",
+//   storage: "../database.sqlite",
+// });
+sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialectModule: pg,
   dialectOptions: {
     ssl: {
       require: true,
@@ -9,7 +18,7 @@ sequelizee = new Sequelize(process.env.DATABASE_URL, {
   },
 });
 
-sequelizee
+sequelize
   .authenticate()
   .then(() => {
     console.log("Connection has been established successfully.");

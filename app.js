@@ -1,10 +1,12 @@
 const Express = require("express");
 const routes = require("./routes");
 const { sequelize, Word } = require("./models");
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
+const dotenv = require("dotenv");
 
 async function initialize() {
   const app = Express();
+  dotenv.config();
 
   app.use(Express.json());
 
@@ -94,10 +96,10 @@ async function initialize() {
 
   // await Word.bulkCreate(bulkwords);
 
-  let port = process.env.PORT;
-  if (port == null || port == "") {
-    port = 4001;
-  }
+  const port = process.env.PORT || 4001;
+  // if (port == null || port == "") {
+  //   port = 4001;
+  // }
 
   app.listen(port, () => {
     console.log(`app running on port ${port} `);
